@@ -25,3 +25,9 @@ Status words used throughout, matching the [specifications](../specs/README.md):
 ## What exists today
 
 One installation runs the design in production: QNFO, the owner's own fleet. A seed repository turns an idea file into a planned organization and a tested tick, but has not yet been applied to a fresh cloud account. There is no outside customer, no outside audit and no product dashboard yet. Details are in [Getting started](getting-started.md) and the [case study](qnfo-case-study.md).
+
+## Platform and packaging
+
+- [Why Ultrastable runs on Cloudflare Workers](why-cloudflare.md): the reasons, the comparison, the limits, the live trial.
+- [System and bootstrapping requirements](system-requirements.md): what a person needs, what it costs, what the system needs.
+- [US-SPEC-19: Front door and packaging](../specs/US-SPEC-19-front-door.md): the three ways in.
