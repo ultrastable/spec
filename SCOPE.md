@@ -30,6 +30,18 @@ Site and app builders are friendly but boxed in by what they can do. Coding agen
 
 Integration is at the level of records, not lock-in: the console is a replaceable view, and everything the person owns is available as plain files and records.
 
+## Ultrastable runs on itself
+
+This is a rule, not a slogan. The `ultrastable` organization and its repositories are the first organization the product runs: its code and specifications change through the same items, claims, reviews, predictions and probes the product sells ([US-SPEC-20](specs/US-SPEC-20-self-hosting.md)). It holds for any tool: every repository carries the same contract in every file an AI tool reads, CI enforces it, and a tool that cannot do a step is told what to do instead. We state our current stage honestly (today: stage 1) and the project checks its own claims: a specification that says BUILT must name code that exists.
+
+## Platform: built for Cloudflare Workers, and it says so
+
+Ultrastable is built for **Cloudflare Workers**. It is the only supported platform. We chose it because a free account is a hard cap, a person can start with no account at all, and one account holds the code, database, timer, AI models and identity gate. We proved it runs there and we publish the limits we hit. A Google Cloud Run adapter exists to show the design is not welded to one vendor; it is a proof, not a promise. Self-hosted, AWS and Azure are not targets. The reasons, a comparison with the alternatives, and the limits of Workers are in [docs/why-cloudflare.md](docs/why-cloudflare.md).
+
+## No terminal required
+
+The first step is never "open a terminal". There are three doors ([US-SPEC-19](specs/US-SPEC-19-front-door.md)): a web page for anyone, one prompt pasted into an AI assistant for people who use one, and a developer path. All end at the same checks and the same three-screen console.
+
 ## What it does not do by default (out of scope)
 
 Unless the person turns on a Capability Pack (below), Ultrastable does **not**:
@@ -45,19 +57,28 @@ Unless the person turns on a Capability Pack (below), Ultrastable does **not**:
 
 The system says so plainly when asked, names the reason, and offers the pack.
 
-## Capability Packs: how "code can do anything" stays inside the boundary
+## Capability Packs: how far we are willing to push
 
-Code can be pointed at almost anything: drafting patents, writing business plans, running outreach. Those are legitimate uses and QNFO does some of them. They are **not** the product. They are optional **packs** that live outside the core.
+Code can be pointed at almost anything. The first installation of this design posts to social networks, sends mail to a subscriber list, makes video, reads analytics and operates cloud accounts. Those capabilities matter, because a fully autonomous organization acts at its edges as well as in its middle. They are **not the product**, and they must not distort it. They are **packs**: optional sets of agents and code loops, off by default, each with its own manager, charter, caps and kill switch (`US-SPEC-21`).
+
+| Tier | What | Default |
+|---|---|---|
+| **Core** | Elicitation, specifications, charters, management lifecycle, code loops, deploy, console, trust, caps, and self-description (`US-SPEC-22`) | On |
+| **Pack, class A: internal** | Works only on the organization's own records (analytics reading, documentation) | Off; may earn full autonomy |
+| **Pack, class B: outward reach** | Email and subscribers, social posting, video, site publishing | Off; every action passes the outbound guard (consent, suppression, caps, approval, kill switch) |
+| **Pack, class C: professional drafts** | Business plan, patent or trademark drafts, legal or tax text | Off; **draft only**, marked for professional review, never filed or sent |
+| **Pack, class D: platform operations** | Operating cloud or provider accounts | Off; only through the deploy module with probes and revert |
+| **Out of bounds** | Moving money; signing or filing for a person; contacting people without consent; impersonation; disinformation; surveillance; circumventing platform controls or the guard | Never, as core or pack (`US-SPEC-21` Section 3) |
 
 A pack:
 
-- is a separate directory or repository, with its own charter, specification, owner and tests;
-- is **off by default**, enabled only by an explicit entry in `ultrastable.json` made by the person;
-- may read the core's records and write only through the core's published interfaces, and the core never imports a pack;
-- carries its own scope statement and its own list of what it will not do;
-- inherits the interrupt gate and the limits (`US-SPEC-06`, `09`), which no pack can weaken.
+- is a separate directory with a manifest, its own charter, scope statement and tests;
+- is **off** until a person enables it through a recorded, reversible decision;
+- reaches the core only through its published interfaces, and the core never imports a pack;
+- has a manager and a primary and guard metrics like any program, and gets its share of plussing;
+- cannot weaken the interrupt gate, the caps, the outbound guard or this scope.
 
-Examples a pack could be: business-plan writer, patent drafter, research pipeline, outreach. None ships in `ultrastable/workers` or `ultrastable/spec`.
+None of the packs ships in the core. They live in the code repository under `packs/` and are enabled in `ultrastable.json`.
 
 ## The scope test (use before adding anything)
 
@@ -79,7 +100,7 @@ If any answer is no, it is not core. It becomes a Capability Pack proposal, file
 
 ## Branding line
 
-> Say what you want. Ultrastable works out what it needs to know, writes the specifications, and builds and runs it, managed to the standard of a professional project office.
+> Say what you want. Ultrastable works out what it needs to know, writes the specifications, and builds and runs it on Cloudflare Workers, managed to the standard of a professional project office. No code and no terminal.
 
 ## What QNFO is, for scope purposes
 
