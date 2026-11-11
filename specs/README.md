@@ -30,6 +30,7 @@ These documents specify the architecture of Ultrastable, an autonomous developme
 | [US-SPEC-16](US-SPEC-16-ignorance-and-prompted-recall.md) | Ignorance and prompted recall (eliciting what a non-expert does not know) | L1, L2 |
 | [US-SPEC-17](US-SPEC-17-failure-modes-and-remediation.md) | Failure-mode register, remediation contracts, loop breaker | L2, L3 |
 | [US-SPEC-18](US-SPEC-18-guided-console.md) | Guided console (three screens, buttons first, prompt second) | L1, L2 |
+| [US-SPEC-21](US-SPEC-21-github-substrate-and-cost-control.md) | GitHub as substrate and hard cost control | L2, L3 |
 
 ## Status legend
 

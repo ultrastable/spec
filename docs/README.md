@@ -15,6 +15,7 @@ Status words used throughout, matching the [specifications](../specs/README.md):
 | [Getting started](getting-started.md) | You want to go from an idea file to a running organization |
 | [Concepts](concepts/overview.md) | You want one idea at a time |
 | [Security](security.md) | You are deciding whether to trust it |
+| [GitHub free organization](github-free-org.md) | You want to know what GitHub gives for free, what changes when repos go public, and what to switch on |
 | [QNFO case study](qnfo-case-study.md) | You want to see it running, honestly |
 | [Specifications](../specs/README.md) | You want the precise, citable requirements |
 
