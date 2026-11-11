@@ -34,6 +34,7 @@ These documents specify the architecture of Ultrastable, an autonomous developme
 | [US-SPEC-20](US-SPEC-20-self-hosting.md) | Self-hosting: Ultrastable runs on itself, for any tool | L1, L2 |
 | [US-SPEC-21](US-SPEC-21-capability-packs.md) | Capability packs, boundaries and the outbound guard | L2, L3 |
 | [US-SPEC-22](US-SPEC-22-self-description.md) | Self-description and the claims registry | L2 |
+| [US-SPEC-23](US-SPEC-23-closed-system.md) | The closed system: autonomy as self-referential loops | all |
 
 ## Status legend
 
