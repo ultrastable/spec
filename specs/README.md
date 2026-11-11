@@ -60,3 +60,4 @@ Cite as `US-SPEC-<nn> v<version>, <section>` and a requirement as `US-<nn>-R<mm>
 ## Reading order
 
 Scope is fixed by [../SCOPE.md](../SCOPE.md): Ultrastable manages the delivery of what a person asked for and writes its own specifications; business planning, legal filing, marketing and similar work are out of scope except as opt-in Capability Packs. Start with US-SPEC-00 and US-SPEC-03. The tick is the spine; trust (06), claims (08) and the kit (10) explain what the tick touches. User documentation is in [../docs/](../docs/README.md).
+| US-SPEC-24 | [Closed loops: autonomy, system memory, plow-back](US-SPEC-24-closed-loops.md) |
