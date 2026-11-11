@@ -3,7 +3,7 @@
 
 # What GitHub gives a free organization, and how Ultrastable uses it
 
-Facts retrieved 2026-11-11 from docs.github.com and from read-only calls against the `ultrastable` organization. Anything not confirmed is marked **unverified**. The requirements are in [US-SPEC-21](../specs/US-SPEC-21-github-substrate-and-cost-control.md).
+Facts retrieved 2026-11-11 from docs.github.com and from read-only calls against the `ultrastable` organization. Anything not confirmed is marked **unverified**. The requirements are in [US-SPEC-23](../specs/US-SPEC-23-github-substrate-and-cost-control.md).
 
 ## The short version
 
@@ -38,7 +38,7 @@ GitHub's free organization plan is generous for public repositories and thin for
 | Forks and outside pull requests | None | Possible: secrets are not passed to fork runs; approval policy applies; `pull_request_target` is dangerous |
 | Anyone can read the workflow files and the history | No | Yes: scan history for secrets first |
 
-What stays the same: every cost and security rule in US-SPEC-21. Free minutes are not a reason to relax them (abuse, forks and a later move back to private all cost money).
+What stays the same: every cost and security rule in US-SPEC-23. Free minutes are not a reason to relax them (abuse, forks and a later move back to private all cost money).
 
 ## Limits table
 
@@ -92,7 +92,7 @@ Do these as the organization owner. Commands marked **untested** were written fr
 9. **Rulesets.** Repository, Settings, Rules, Rulesets, New branch ruleset: target the default branch, require a pull request, require status checks `test`, block force pushes. On private Free repositories this is refused (observed); apply it the day a repository goes public.
 10. **Before going public**: scan history for secrets, turn on secret scanning and push protection (Settings, Advanced Security), set fork approval (step 3), confirm no workflow uses `pull_request_target` or exposes secrets to forks, then apply step 9.
 
-Dependabot: add `.github/dependabot.yml` per repository with a weekly interval for the ecosystems in use; its runs are free (documented as free usage) and its pull requests run your workflows, so the path filters in US-21-R13 matter.
+Dependabot: add `.github/dependabot.yml` per repository with a weekly interval for the ecosystems in use; its runs are free (documented as free usage) and its pull requests run your workflows, so the path filters in US-23-R13 matter.
 
 ## How the cost rules look in a workflow
 

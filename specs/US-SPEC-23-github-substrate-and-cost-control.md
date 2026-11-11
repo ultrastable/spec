@@ -1,11 +1,11 @@
 <!-- SPDX-License-Identifier: LicenseRef-Ultrastable-USL-1.0 -->
 <!-- Copyright (c) 2026 Rowan Brad Quni-Gudzinas -->
 
-# US-SPEC-21: GitHub as substrate and hard cost control
+# US-SPEC-23: GitHub as substrate and hard cost control
 
 | Field | Value |
 |---|---|
-| ID | US-SPEC-21 |
+| ID | US-SPEC-23 |
 | Title | GitHub as substrate and hard cost control |
 | Version | 0.1.0 (draft) |
 | Date | 2026-11-11 |
@@ -62,17 +62,17 @@ An earlier fleet that ran a similar organization on a hosted platform produced t
 
 | Lesson | What happened (reference fleet) | Requirement |
 |---|---|---|
-| Spend before limits | About USD 1,000 on CI in a period before limits existed | US-21-R20, R21 |
-| A breached cap must steer, not stop, and must not grow | The rule that a breached cap adds no worker, schedule or paid call (US-09-R05) | US-21-R24, R26 |
-| Scheduler collisions | 201 cron collisions a day measured, the worst 15 at one instant | US-21-R14, R50 |
-| Dead-man gaps | A tick slot with no record went unnoticed; redundancy needs an independent check | US-21-R51 |
-| Unmeasured members | Of 15 members missing from the monitor roster, four answered a probe; absence from a roster is not proof of idleness | US-21-R52 |
-| Frozen monitors | 73 of 83 probe names frozen at one timestamp, 3,342 of 21,076 probe rows 404 for retired members | US-21-R52 |
-| Retries cost more than the dear path | A cheap model without valid tool calls made retries dearer than the frontier model | US-21-R53 |
-| Inverted guard | A guard whose target was dearer than the status quo raised cost | US-21-R22 |
-| Executor that accounts for nothing | 25 scanned, 0 in any outcome bucket | US-21-R54 |
-| Cap figures differ by document | Two documents stated two limits for the same cap | US-21-R21 (one file, one number) |
-| Reverted by a concurrent redeploy | A purge undone by a second deploy | US-21-R55 |
+| Spend before limits | About USD 1,000 on CI in a period before limits existed | US-23-R20, R21 |
+| A breached cap must steer, not stop, and must not grow | The rule that a breached cap adds no worker, schedule or paid call (US-09-R05) | US-23-R24, R26 |
+| Scheduler collisions | 201 cron collisions a day measured, the worst 15 at one instant | US-23-R14, R50 |
+| Dead-man gaps | A tick slot with no record went unnoticed; redundancy needs an independent check | US-23-R51 |
+| Unmeasured members | Of 15 members missing from the monitor roster, four answered a probe; absence from a roster is not proof of idleness | US-23-R52 |
+| Frozen monitors | 73 of 83 probe names frozen at one timestamp, 3,342 of 21,076 probe rows 404 for retired members | US-23-R52 |
+| Retries cost more than the dear path | A cheap model without valid tool calls made retries dearer than the frontier model | US-23-R53 |
+| Inverted guard | A guard whose target was dearer than the status quo raised cost | US-23-R22 |
+| Executor that accounts for nothing | 25 scanned, 0 in any outcome bucket | US-23-R54 |
+| Cap figures differ by document | Two documents stated two limits for the same cap | US-23-R21 (one file, one number) |
+| Reverted by a concurrent redeploy | A purge undone by a second deploy | US-23-R55 |
 
 ## 6. Verified platform facts (retrieved 2026-11-11)
 
@@ -105,61 +105,61 @@ The practical consequence: while the repositories are private on the Free plan, 
 
 ### 7.1 Substrate and placement
 
-- **US-21-R01 [L2]** Items MUST be issues, changes MUST be pull requests, and a pull request MUST reference its item; the Ultrastable ledger remains the source of truth and GitHub the mirror.
-- **US-21-R02 [L2]** Owner questions that are not gate cards SHOULD be Discussions; gate cards stay in the ledger.
-- **US-21-R03 [L2]** A Projects (v2) board SHOULD present items as a view and MUST NOT be a second source of truth.
-- **US-21-R04 [L2]** A deployable bundle SHOULD be a Release with a version tag, and a deploy MUST be revertable to the previous Release.
-- **US-21-R05 [L2]** Bootstrap and documentation pages MAY be served from Pages, only from public repositories.
-- **US-21-R06 [L2]** Heavy compute, model calls, the tick, the watchdog and every recurring job MUST run on Cloudflare. Actions MUST be limited to checks and builds that finish within the job timeout.
-- **US-21-R07 [L2]** Rulesets and CODEOWNERS MUST be configured for protected paths where the plan enforces them, and an implementation MUST state which enforcement is advisory on the plan in use.
+- **US-23-R01 [L2]** Items MUST be issues, changes MUST be pull requests, and a pull request MUST reference its item; the Ultrastable ledger remains the source of truth and GitHub the mirror.
+- **US-23-R02 [L2]** Owner questions that are not gate cards SHOULD be Discussions; gate cards stay in the ledger.
+- **US-23-R03 [L2]** A Projects (v2) board SHOULD present items as a view and MUST NOT be a second source of truth.
+- **US-23-R04 [L2]** A deployable bundle SHOULD be a Release with a version tag, and a deploy MUST be revertable to the previous Release.
+- **US-23-R05 [L2]** Bootstrap and documentation pages MAY be served from Pages, only from public repositories.
+- **US-23-R06 [L2]** Heavy compute, model calls, the tick, the watchdog and every recurring job MUST run on Cloudflare. Actions MUST be limited to checks and builds that finish within the job timeout.
+- **US-23-R07 [L2]** Rulesets and CODEOWNERS MUST be configured for protected paths where the plan enforces them, and an implementation MUST state which enforcement is advisory on the plan in use.
 
 ### 7.2 Workflow hygiene (each enforced by `tools/workflow_lint.py`)
 
-- **US-21-R10 [L2]** Every workflow MUST declare `permissions` (default `contents: read`); wider permission MUST be per job and justified.
-- **US-21-R11 [L2]** Every workflow MUST declare `concurrency`, with `cancel-in-progress` for pull requests, or carry a `# no-concurrency: <reason>` comment.
-- **US-21-R12 [L2]** Every job MUST declare `timeout-minutes` of at most 15 (the platform default is up to six hours).
-- **US-21-R13 [L2]** Workflows MUST use path filters so that documentation-only changes skip the heavy jobs. Where a required check is skipped by a path filter, the implementation MUST make the skipped check count as passing or not require it, because a skipped required check stays pending.
-- **US-21-R14 [L2]** A workflow MUST NOT use a `schedule` trigger; recurring work runs from the Cloudflare tick.
-- **US-21-R15 [L2]** A workflow SHOULD NOT use a matrix of more than four jobs, and MUST NOT rely on the platform maximum of 256.
-- **US-21-R16 [L2]** Workflows MUST run on Linux standard runners only; macOS and Windows runners MUST NOT be used.
-- **US-21-R17 [L2]** Dependencies SHOULD be cached (setup actions' cache option) when a lock file exists; caches MUST stay within the 10 GB repository limit.
-- **US-21-R18 [L2]** Third-party actions MUST be pinned to a version tag at minimum and SHOULD be pinned to a full commit SHA once the repositories are public; `@main`, `@master` and a bare reference MUST NOT be used.
-- **US-21-R19 [L2]** The linter MUST run in CI and on the real workflow files as a test.
+- **US-23-R10 [L2]** Every workflow MUST declare `permissions` (default `contents: read`); wider permission MUST be per job and justified.
+- **US-23-R11 [L2]** Every workflow MUST declare `concurrency`, with `cancel-in-progress` for pull requests, or carry a `# no-concurrency: <reason>` comment.
+- **US-23-R12 [L2]** Every job MUST declare `timeout-minutes` of at most 15 (the platform default is up to six hours).
+- **US-23-R13 [L2]** Workflows MUST use path filters so that documentation-only changes skip the heavy jobs. Where a required check is skipped by a path filter, the implementation MUST make the skipped check count as passing or not require it, because a skipped required check stays pending.
+- **US-23-R14 [L2]** A workflow MUST NOT use a `schedule` trigger; recurring work runs from the Cloudflare tick.
+- **US-23-R15 [L2]** A workflow SHOULD NOT use a matrix of more than four jobs, and MUST NOT rely on the platform maximum of 256.
+- **US-23-R16 [L2]** Workflows MUST run on Linux standard runners only; macOS and Windows runners MUST NOT be used.
+- **US-23-R17 [L2]** Dependencies SHOULD be cached (setup actions' cache option) when a lock file exists; caches MUST stay within the 10 GB repository limit.
+- **US-23-R18 [L2]** Third-party actions MUST be pinned to a version tag at minimum and SHOULD be pinned to a full commit SHA once the repositories are public; `@main`, `@master` and a bare reference MUST NOT be used.
+- **US-23-R19 [L2]** The linter MUST run in CI and on the real workflow files as a test.
 
 ### 7.3 Budget, watchdog and kill switch
 
-- **US-21-R20 [L2]** The Actions spending limit MUST be USD 0 with stop-usage on, so overage is a hard stop and not a bill. Raising it is an owner decision and is identity-bound (it spends the owner's money).
-- **US-21-R21 [L2]** A monthly minutes budget per repository and in total MUST be kept in one file (`ops/actions-budget.json`), and a ledger row (month, repository, minutes used, budget, ratio) MUST be published each month.
-- **US-21-R22 [L2]** The watchdog MUST read the current billing usage endpoint, compute Linux-equivalent minutes per repository, and MUST be tested against a recorded real response, not only a documented shape.
-- **US-21-R23 [L2]** At 50 percent and at 80 percent of any repository's or the total budget the watchdog MUST open a decision card with its default already in effect (US-SPEC-06).
-- **US-21-R24 [L2]** At 100 percent the watchdog MUST disable the non-essential workflows named in the budget file, keep the test job, and open a decision card; it MUST NOT raise a budget.
-- **US-21-R25 [L2]** A kill switch row MUST disable every non-essential workflow on demand; a drill MUST turn it off in every case (US-09-R03).
-- **US-21-R26 [L2]** The watchdog exit status MUST be 0 for ok, 1 for a warning and 2 for over, and it MUST run from the Cloudflare tick, not from Actions.
+- **US-23-R20 [L2]** The Actions spending limit MUST be USD 0 with stop-usage on, so overage is a hard stop and not a bill. Raising it is an owner decision and is identity-bound (it spends the owner's money).
+- **US-23-R21 [L2]** A monthly minutes budget per repository and in total MUST be kept in one file (`ops/actions-budget.json`), and a ledger row (month, repository, minutes used, budget, ratio) MUST be published each month.
+- **US-23-R22 [L2]** The watchdog MUST read the current billing usage endpoint, compute Linux-equivalent minutes per repository, and MUST be tested against a recorded real response, not only a documented shape.
+- **US-23-R23 [L2]** At 50 percent and at 80 percent of any repository's or the total budget the watchdog MUST open a decision card with its default already in effect (US-SPEC-06).
+- **US-23-R24 [L2]** At 100 percent the watchdog MUST disable the non-essential workflows named in the budget file, keep the test job, and open a decision card; it MUST NOT raise a budget.
+- **US-23-R25 [L2]** A kill switch row MUST disable every non-essential workflow on demand; a drill MUST turn it off in every case (US-09-R03).
+- **US-23-R26 [L2]** The watchdog exit status MUST be 0 for ok, 1 for a warning and 2 for over, and it MUST run from the Cloudflare tick, not from Actions.
 
 ### 7.4 Settings
 
-- **US-21-R30 [L2]** The organization default for the workflow token MUST be read-only and workflows MUST NOT be able to approve pull requests.
-- **US-21-R31 [L2]** Workflows from outside contributors MUST require approval before they run.
-- **US-21-R32 [L2]** Repositories MUST allow squash merge only and delete the branch on merge.
-- **US-21-R33 [L2]** Discussions SHOULD be enabled on the repository that holds owner questions.
-- **US-21-R34 [L2]** The script that applies settings MUST print the commands and change nothing unless `--apply` is given.
+- **US-23-R30 [L2]** The organization default for the workflow token MUST be read-only and workflows MUST NOT be able to approve pull requests.
+- **US-23-R31 [L2]** Workflows from outside contributors MUST require approval before they run.
+- **US-23-R32 [L2]** Repositories MUST allow squash merge only and delete the branch on merge.
+- **US-23-R33 [L2]** Discussions SHOULD be enabled on the repository that holds owner questions.
+- **US-23-R34 [L2]** The script that applies settings MUST print the commands and change nothing unless `--apply` is given.
 
 ### 7.5 Public repositories
 
-- **US-21-R40 [L2]** Unlimited standard-runner minutes on public repositories MUST NOT relax any rule in 7.2 to 7.4.
-- **US-21-R41 [L2]** `pull_request_target` MUST NOT be used, and secrets MUST NOT be reachable from a job triggered by a pull request from a fork (lint rule W07).
-- **US-21-R42 [L2]** The workflow token MUST carry least privilege, and write scopes MUST be granted per job only.
-- **US-21-R43 [L2]** Before a repository goes public the owner MUST be shown a checklist covering: secret history scan, enabling push protection and secret scanning, Pages source, rulesets for the default branch, and fork approval policy.
-- **US-21-R44 [L3]** No recurring duty MAY depend on a repository's scheduled workflows, because a public repository's schedules stop after 60 days without activity.
+- **US-23-R40 [L2]** Unlimited standard-runner minutes on public repositories MUST NOT relax any rule in 7.2 to 7.4.
+- **US-23-R41 [L2]** `pull_request_target` MUST NOT be used, and secrets MUST NOT be reachable from a job triggered by a pull request from a fork (lint rule W07).
+- **US-23-R42 [L2]** The workflow token MUST carry least privilege, and write scopes MUST be granted per job only.
+- **US-23-R43 [L2]** Before a repository goes public the owner MUST be shown a checklist covering: secret history scan, enabling push protection and secret scanning, Pages source, rulesets for the default branch, and fork approval policy.
+- **US-23-R44 [L3]** No recurring duty MAY depend on a repository's scheduled workflows, because a public repository's schedules stop after 60 days without activity.
 
 ### 7.6 Lessons as requirements
 
-- **US-21-R50 [L3]** Recurring work MUST be staggered by a deterministic offset and a collision count MUST be measured.
-- **US-21-R51 [L3]** A dead-man check MUST open an item when an expected tick slot has no record, and it MUST be independent of the scheduler it checks.
-- **US-21-R52 [L3]** A census of every workflow and runner user MUST be measured before anything is retired, and a monitor with frozen or dead targets MUST file an item.
-- **US-21-R53 [L2]** A change that lowers cost MUST be probed on the real path before it is kept, and retries MUST be bounded (US-09-R09).
-- **US-21-R54 [L3]** The watchdog and the runner MUST account for every item scanned: the outcome buckets MUST sum to the scanned count.
-- **US-21-R55 [L2]** A cost change that is overwritten by a concurrent deploy MUST be detected by a guard that reads the deployed result, not the source.
+- **US-23-R50 [L3]** Recurring work MUST be staggered by a deterministic offset and a collision count MUST be measured.
+- **US-23-R51 [L3]** A dead-man check MUST open an item when an expected tick slot has no record, and it MUST be independent of the scheduler it checks.
+- **US-23-R52 [L3]** A census of every workflow and runner user MUST be measured before anything is retired, and a monitor with frozen or dead targets MUST file an item.
+- **US-23-R53 [L2]** A change that lowers cost MUST be probed on the real path before it is kept, and retries MUST be bounded (US-09-R09).
+- **US-23-R54 [L3]** The watchdog and the runner MUST account for every item scanned: the outcome buckets MUST sum to the scanned count.
+- **US-23-R55 [L2]** A cost change that is overwritten by a concurrent deploy MUST be detected by a guard that reads the deployed result, not the source.
 
 ## 8. Failure modes
 
@@ -178,14 +178,14 @@ The practical consequence: while the repositories are private on the Free plan, 
 
 ## 9. Conformance tests
 
-- **US-21-T01** Lint a workflow without `permissions`, without `concurrency`, without `timeout-minutes`. Pass: findings W01, W02, W03.
-- **US-21-T02** Lint workflows with `schedule`, `pull_request_target`, `@main`, a macOS runner, an unguarded secret in a pull request job. Pass: W04, W05, W06, W08, W07.
-- **US-21-T03** Lint the repository's real workflows. Pass: zero findings.
-- **US-21-T04** Feed the watchdog 250 of a 500 minute budget, then 400, then 500. Pass: warn50 exit 1, warn80 exit 1, over exit 2 with the non-essential workflows listed.
-- **US-21-T05** Feed a macOS row of 30 minutes at 0.062. Pass: counted as 310 Linux-equivalent minutes.
-- **US-21-T06** Run the settings script with no flag. Pass: commands printed, no subprocess call made.
-- **US-21-T07** Run the watchdog live. Pass: exit status and a decision are produced from the real billing response.
-- **US-21-T08** Read `GET organizations/{org}/settings/billing/budgets`. Pass: an Actions budget of 0 with `prevent_further_usage` true.
+- **US-23-T01** Lint a workflow without `permissions`, without `concurrency`, without `timeout-minutes`. Pass: findings W01, W02, W03.
+- **US-23-T02** Lint workflows with `schedule`, `pull_request_target`, `@main`, a macOS runner, an unguarded secret in a pull request job. Pass: W04, W05, W06, W08, W07.
+- **US-23-T03** Lint the repository's real workflows. Pass: zero findings.
+- **US-23-T04** Feed the watchdog 250 of a 500 minute budget, then 400, then 500. Pass: warn50 exit 1, warn80 exit 1, over exit 2 with the non-essential workflows listed.
+- **US-23-T05** Feed a macOS row of 30 minutes at 0.062. Pass: counted as 310 Linux-equivalent minutes.
+- **US-23-T06** Run the settings script with no flag. Pass: commands printed, no subprocess call made.
+- **US-23-T07** Run the watchdog live. Pass: exit status and a decision are produced from the real billing response.
+- **US-23-T08** Read `GET organizations/{org}/settings/billing/budgets`. Pass: an Actions budget of 0 with `prevent_further_usage` true.
 
 ## 10. Reference implementation status
 
