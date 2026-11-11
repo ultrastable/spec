@@ -32,6 +32,8 @@ These documents specify the architecture of Ultrastable, an autonomous developme
 | [US-SPEC-18](US-SPEC-18-guided-console.md) | Guided console (three screens, buttons first, prompt second) | L1, L2 |
 | [US-SPEC-19](US-SPEC-19-front-door.md) | Front door and packaging (web launcher, paste-into-agent, developer; Cloudflare Workers only) | L1, L2 |
 | [US-SPEC-20](US-SPEC-20-self-hosting.md) | Self-hosting: Ultrastable runs on itself, for any tool | L1, L2 |
+| [US-SPEC-21](US-SPEC-21-capability-packs.md) | Capability packs, boundaries and the outbound guard | L2, L3 |
+| [US-SPEC-22](US-SPEC-22-self-description.md) | Self-description and the claims registry | L2 |
 
 ## Status legend
 
