@@ -8,7 +8,8 @@ from pathlib import Path
 
 LOCAL = re.compile(
     r"run\s+(it\s+)?(locally|manually|by\s+hand)|on\s+(your|the\s+owner'?s|a\s+local)\s+(machine|laptop|pc|desktop)"
-    r"|windows\s+(task\s+scheduler|scheduled\s+task)|\bschtasks\b|\bcrontab\s+-e\b|startup\s+folder"
+    r"|windows\s+(task\s+scheduler|scheduled\s+task)|\bschtasks\b|\bcrontab\b|startup\s+folder"
+    r"|register-scheduledtask|new-scheduledtask|schedule\.service|\blaunchctl\b|launchagents|systemctl\s+--user"
     r"|(user|owner|you)\s+(must|should|needs?\s+to)\s+(run|click|trigger|re-?run|execute|merge|deploy)",
     re.I,
 )
@@ -24,6 +25,34 @@ def local_hits(lines):
 
 def local_script(path):
     return path.lower().endswith(LOCAL_SCRIPT)
+
+
+RUNNABLE = (".py", ".sh")
+WORKFLOWS = ".github/workflows"
+
+
+def _read(p):
+    return Path(p).read_text(encoding="utf-8", errors="replace")
+
+
+def unconsumed(paths, wf_text=None, hop_text=None):
+    """New .py/.sh scripts must run server-side: named in a workflow, or named/imported by a script a workflow runs."""
+    if wf_text is None:
+        wf = sorted(Path(WORKFLOWS).glob("*.y*ml")) if Path(WORKFLOWS).exists() else []
+        wf_text = "\n".join(_read(w) for w in wf)
+    if hop_text is None:
+        hop = [q for q in Path(".").rglob("*") if q.is_file() and q.suffix in RUNNABLE and q.name in wf_text and q.as_posix() not in SELF]
+        hop_text = "\n".join(_read(q) for q in hop)
+    out = []
+    for p in paths:
+        if not p.endswith(RUNNABLE) or p.startswith(("tests/", "test/")) or "/tests/" in p or Path(p).name.startswith("test_"):
+            continue
+        name, stem = Path(p).name, Path(p).stem
+        imported = re.search(rf"\bimport\s+{re.escape(stem)}\b|\bfrom\s+{re.escape(stem)}\s+import", hop_text)
+        if name in wf_text or name in hop_text or imported:
+            continue
+        out.append(p)
+    return out
 
 
 def directive_gaps(text, exists=lambda p: Path(p).exists()):
@@ -49,7 +78,15 @@ def selftest():
     assert directive_gaps("## DIR-9: x\nno line\n"), "missing enforcer"
     assert directive_gaps("## DIR-9: x\nEnforced-by: a.py\n", lambda p: False), "missing file"
     assert directive_gaps("## DIR-9: x\nEnforced-by: a.py\n", lambda p: True) == [], "ok"
-    print("server_closer_lint selftest: 10 passed, 0 failed")
+    assert local_hits(["subprocess.run(['schtasks', '/create'])"]), "schtasks call"
+    assert local_hits(["Register-ScheduledTask -TaskName x"]), "powershell scheduler"
+    assert local_hits(["os.system('crontab mycron')"]) and local_hits(["launchctl load x.plist"]), "unix scheduler"
+    wf = "run: python3 tools/a.py"
+    assert unconsumed(["tools/orphan.py"], wf, "") == ["tools/orphan.py"], "orphan flagged"
+    assert unconsumed(["tools/a.py"], wf, "") == [], "workflow-run ok"
+    assert unconsumed(["tools/helper.py"], wf, "import helper") == [], "imported by run script ok"
+    assert unconsumed(["tests/test_x.py", "docs/x.md"], wf, "") == [], "tests and non-scripts skipped"
+    print("server_closer_lint selftest: 15 passed, 0 failed")
 
 
 def sh(*a):
@@ -78,6 +115,7 @@ def main():
     else:
         added = sh("git", "diff", "--name-only", "--diff-filter=AR", f"{base}...HEAD").stdout.split()
         fail += [f"{p}: local-machine script; closers run server-side (cron, worker, workflow)" for p in added if local_script(p)]
+        fail += [f"{p}: new script has no server-side runner; run it from {WORKFLOWS}/*.yml or from a script a workflow runs" for p in unconsumed(added)]
         cur = None
         for l in sh("git", "diff", "-U0", f"{base}...HEAD").stdout.splitlines():
             if l.startswith("+++ b/"):
