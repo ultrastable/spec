@@ -29,6 +29,7 @@ def local_script(path):
 
 RUNNABLE = (".py", ".sh")
 WORKFLOWS = ".github/workflows"
+NOISE = re.compile(r"\s*(#|-?\s*run:\s*echo\b|echo\b)")
 
 
 def _read(p):
@@ -39,7 +40,8 @@ def unconsumed(paths, wf_text=None, hop_text=None):
     """New .py/.sh scripts must run server-side: named in a workflow, or named/imported by a script a workflow runs."""
     if wf_text is None:
         wf = sorted(Path(WORKFLOWS).glob("*.y*ml")) if Path(WORKFLOWS).exists() else []
-        wf_text = "\n".join(_read(w) for w in wf)
+        raw = "\n".join(_read(w) for w in wf)
+        wf_text = "\n".join(l for l in raw.splitlines() if not NOISE.match(l))
     if hop_text is None:
         hop = [q for q in Path(".").rglob("*") if q.is_file() and q.suffix in RUNNABLE and q.name in wf_text and q.as_posix() not in SELF]
         hop_text = "\n".join(_read(q) for q in hop)
@@ -86,7 +88,9 @@ def selftest():
     assert unconsumed(["tools/a.py"], wf, "") == [], "workflow-run ok"
     assert unconsumed(["tools/helper.py"], wf, "import helper") == [], "imported by run script ok"
     assert unconsumed(["tests/test_x.py", "docs/x.md"], wf, "") == [], "tests and non-scripts skipped"
-    print("server_closer_lint selftest: 15 passed, 0 failed")
+    assert NOISE.match("      - run: echo tools/e.py") and NOISE.match("  # tools/e.py"), "noise lines dropped"
+    assert not NOISE.match("      - run: python3 tools/e.py"), "real run kept"
+    print("server_closer_lint selftest: 17 passed, 0 failed")
 
 
 def sh(*a):
