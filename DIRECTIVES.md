@@ -12,4 +12,6 @@ How it applies:
 - A loop that needs a user step to close is an open loop and a defect.
 - The only exception is an action that is both irreversible and identity-bound: money, legal signing, or signing in to the owner's own accounts. The system records each one as an owner card with its reason. It never phrases the card as a question.
 
+Enforced-by: tools/server_closer_lint.py, .github/workflows/loop-lints.yml
+
 Related: US-SPEC-23 (closed system), SELF-CLOSED-LOOPS-1.
