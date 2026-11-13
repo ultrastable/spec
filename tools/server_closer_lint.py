@@ -14,11 +14,16 @@ LOCAL = re.compile(
 )
 ALLOW = re.compile(r"IDENTITY-BOUND|IC-GATE-001|lint-allow:\s*local-closer", re.I)
 EXT = (".md", ".yml", ".yaml", ".json", ".txt", ".toml", ".sh", ".py", ".mjs", ".ts", ".js")
+LOCAL_SCRIPT = (".bat", ".cmd", ".ps1", ".psm1", ".vbs", ".lnk")
 SELF = ("tools/server_closer_lint.py", "tools/self_closed_lint.py")
 
 
 def local_hits(lines):
     return [l for l in lines if LOCAL.search(l) and not ALLOW.search(l)]
+
+
+def local_script(path):
+    return path.lower().endswith(LOCAL_SCRIPT)
 
 
 def directive_gaps(text, exists=lambda p: Path(p).exists()):
@@ -44,7 +49,7 @@ def selftest():
     assert directive_gaps("## DIR-9: x\nno line\n"), "missing enforcer"
     assert directive_gaps("## DIR-9: x\nEnforced-by: a.py\n", lambda p: False), "missing file"
     assert directive_gaps("## DIR-9: x\nEnforced-by: a.py\n", lambda p: True) == [], "ok"
-    print("server_closer_lint selftest: 8 passed, 0 failed")
+    print("server_closer_lint selftest: 10 passed, 0 failed")
 
 
 def sh(*a):
@@ -71,6 +76,8 @@ def main():
     elif sh("git", "rev-parse", "--verify", base).returncode != 0:
         fail.append(f"base {base} not found; fetch it or pass --no-diff")
     else:
+        added = sh("git", "diff", "--name-only", "--diff-filter=AR", f"{base}...HEAD").stdout.split()
+        fail += [f"{p}: local-machine script; closers run server-side (cron, worker, workflow)" for p in added if local_script(p)]
         cur = None
         for l in sh("git", "diff", "-U0", f"{base}...HEAD").stdout.splitlines():
             if l.startswith("+++ b/"):
