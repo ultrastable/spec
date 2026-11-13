@@ -41,7 +41,7 @@ def unconsumed(paths, wf_text=None, hop_text=None):
         wf = sorted(Path(WORKFLOWS).glob("*.y*ml")) if Path(WORKFLOWS).exists() else []
         wf_text = "\n".join(_read(w) for w in wf)
     if hop_text is None:
-        hop = [q for q in Path(".").rglob("*") if q.is_file() and q.suffix in RUNNABLE and q.name in wf_text]
+        hop = [q for q in Path(".").rglob("*") if q.is_file() and q.suffix in RUNNABLE and q.name in wf_text and q.as_posix() not in SELF]
         hop_text = "\n".join(_read(q) for q in hop)
     out = []
     for p in paths:
