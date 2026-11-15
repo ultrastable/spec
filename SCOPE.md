@@ -49,7 +49,7 @@ Unless the person turns on a Capability Pack (below), Ultrastable does **not**:
 | Out of scope | Why |
 |---|---|
 | Write a business plan, financial model, pitch or funding application | A business plan is a different product. The system manages the *delivery* of what was asked for. |
-| Draft or file patents, trademarks or other legal instruments | Needs a lawyer and an identity-bound signature. |
+| File trademarks or other legal instruments | Needs an identity-bound signature. |
 | Give legal, tax, investment or medical advice | Not designed or tested for it (`LICENSE` Section 15.3). |
 | Run marketing, sales, outreach or social accounts | Outbound contact with other people needs consent and policy of its own. |
 | Hire, pay, contract or move money | Irreversible and identity-bound; always a gate card to a person. |
@@ -66,7 +66,7 @@ Code can be pointed at almost anything. The first installation of this design po
 | **Core** | Elicitation, specifications, charters, management lifecycle, code loops, deploy, console, trust, caps, and self-description (`US-SPEC-22`) | On |
 | **Pack, class A: internal** | Works only on the organization's own records (analytics reading, documentation) | Off; may earn full autonomy |
 | **Pack, class B: outward reach** | Email and subscribers, social posting, video, site publishing | Off; every action passes the outbound guard (consent, suppression, caps, approval, kill switch) |
-| **Pack, class C: professional drafts** | Business plan, patent or trademark drafts, legal or tax text | Off; **draft only**, marked for professional review, never filed or sent |
+| **Pack, class C: professional drafts** | Business plan, trademark or technical-description drafts, legal or tax text | Off; **draft only**, marked for professional review, never filed or sent |
 | **Pack, class D: platform operations** | Operating cloud or provider accounts | Off; only through the deploy module with probes and revert |
 | **Out of bounds** | Moving money; signing or filing for a person; contacting people without consent; impersonation; disinformation; surveillance; circumventing platform controls or the guard | Never, as core or pack (`US-SPEC-21` Section 3) |
 
@@ -104,4 +104,4 @@ If any answer is no, it is not core. It becomes a Capability Pack proposal, file
 
 ## What QNFO is, for scope purposes
 
-QNFO is the live demonstration and first customer. QNFO also runs outreach, research publishing, patent tooling and similar applications on the same fleet. Those are QNFO's applications, not Ultrastable's product, and they are what the Capability Pack boundary is for.
+QNFO is the live demonstration and first customer. QNFO also runs outreach, research publishing and similar applications on the same fleet. Those are QNFO's applications, not Ultrastable's product, and they are what the Capability Pack boundary is for.

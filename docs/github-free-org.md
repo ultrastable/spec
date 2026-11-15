@@ -7,7 +7,7 @@ Facts retrieved 2026-11-11 from docs.github.com and from read-only calls against
 
 ## The short version
 
-GitHub's free organization plan is generous for public repositories and thin for private ones. Public repositories get unlimited standard-runner Actions minutes, Pages, code scanning, secret scanning and enforced branch rules. Private repositories on the Free plan get a monthly allowance of compute (USD 12, about 2,000 Linux minutes), no Pages and no enforced branch rules. Ultrastable therefore keeps heavy and scheduled work on Cloudflare, uses Actions only for cheap checks, and keeps the spending limit at USD 0 so an overrun stops instead of billing.
+GitHub's free organization plan is generous for public repositories, which is what Ultrastable's repositories are, and thin for private ones. Public repositories get unlimited standard-runner Actions minutes, Pages, code scanning, secret scanning and enforced branch rules. Private repositories on the Free plan get a monthly allowance of compute (USD 12, about 2,000 Linux minutes), no Pages and no enforced branch rules. Ultrastable therefore keeps heavy and scheduled work on Cloudflare, uses Actions only for cheap checks, and keeps the spending limit at USD 0 so an overrun stops instead of billing.
 
 ## What Ultrastable uses, and how
 
@@ -26,7 +26,7 @@ GitHub's free organization plan is generous for public repositories and thin for
 | Codespaces | Optional cloud dev machine | No included usage shown for Free organizations; budget is 0 |
 | Packages and container registry | Not needed now | Public free; private 500 MB and 1 GB transfer a month |
 
-## What changes when the repositories go public
+## Private and public repositories compared
 
 | Area | Private (Free plan) | Public |
 |---|---|---|
@@ -38,7 +38,7 @@ GitHub's free organization plan is generous for public repositories and thin for
 | Forks and outside pull requests | None | Possible: secrets are not passed to fork runs; approval policy applies; `pull_request_target` is dangerous |
 | Anyone can read the workflow files and the history | No | Yes: scan history for secrets first |
 
-What stays the same: every cost and security rule in US-SPEC-24. Free minutes are not a reason to relax them (abuse, forks and a later move back to private all cost money).
+What stays the same: every cost and security rule in US-SPEC-24. Free minutes are not a reason to relax them (abuse and forks cost money).
 
 ## Limits table
 
@@ -88,9 +88,9 @@ Do these as the organization owner. Commands marked **untested** were written fr
 5. **Repository merge settings** (each repository): squash only, delete branch on merge, Discussions on, wiki off. Command (untested): `gh api -X PATCH repos/ultrastable/workers -F delete_branch_on_merge=true -F allow_squash_merge=true -F allow_merge_commit=false -F allow_rebase_merge=false -F has_discussions=true -F has_wiki=false`.
 6. **Discussions.** Repository, Settings, General, Features, tick Discussions; create the category "Owner questions".
 7. **Project board.** Organization, Projects, New project, Board; add the repositories' issues and pull requests; fields: Status, Program, Probe. Free-plan availability **unverified**, so open one and see.
-8. **Pages (public repositories only).** Repository, Settings, Pages, Source "GitHub Actions" or "Deploy from a branch" on `main` and folder `/docs`. Not possible while the repository is private on Free.
-9. **Rulesets.** Repository, Settings, Rules, Rulesets, New branch ruleset: target the default branch, require a pull request, require status checks `test`, block force pushes. On private Free repositories this is refused (observed); apply it the day a repository goes public.
-10. **Before going public**: scan history for secrets, turn on secret scanning and push protection (Settings, Advanced Security), set fork approval (step 3), confirm no workflow uses `pull_request_target` or exposes secrets to forks, then apply step 9.
+8. **Pages (public repositories only).** Repository, Settings, Pages, Source "GitHub Actions" or "Deploy from a branch" on `main` and folder `/docs`. Possible on public repositories only.
+9. **Rulesets.** Repository, Settings, Rules, Rulesets, New branch ruleset: target the default branch, require a pull request, require status checks `test`, block force pushes. On private Free repositories this is refused (observed); apply it to every public repository.
+10. **Before publishing a repository**: scan history for secrets, turn on secret scanning and push protection (Settings, Advanced Security), set fork approval (step 3), confirm no workflow uses `pull_request_target` or exposes secrets to forks, then apply step 9.
 
 Dependabot: add `.github/dependabot.yml` per repository with a weekly interval for the ecosystems in use; its runs are free (documented as free usage) and its pull requests run your workflows, so the path filters in US-24-R13 matter.
 

@@ -31,7 +31,7 @@ The core mission is unchanged (`SCOPE.md`): turn what a non-expert says they wan
 |---|---|---|
 | **A: internal** | Reads and writes only the organization's own records and repositories (documentation, analytics reading, report writing) | May earn full autonomy through the trust ledger |
 | **B: outward reach** | Contacts or publishes to people or the public (email, social, video, site publishing) | Every action passes the outbound guard. Autonomy ceiling is `approve-by-exception`: after earned trust the pack may act alone within caps, and a person can always veto, throttle or stop it. Never above caps. |
-| **C: professional drafts** | Produces material that normally needs a licensed professional (business plan, patent or trademark draft, legal or tax text) | **Draft only.** Output is marked as a draft for professional review. The pack MUST NOT file, sign, submit or send it. |
+| **C: professional drafts** | Produces material that normally needs a licensed professional (business plan, trademark or technical-description draft, legal or tax text) | **Draft only.** Output is marked as a draft for professional review. The pack MUST NOT file, sign, submit or send it. |
 | **D: platform operations** | Operates cloud or provider accounts through their APIs (creating resources, changing DNS, deploying) | Goes through `core/deploy` and its probes, revert and loop breaker; secrets only by presence; spending only inside the router and caps |
 
 ## 3. Out of bounds (no pack may do these)
@@ -114,7 +114,7 @@ Every call writes one row to `guard_ledger` (pack, channel, kind, recipient hash
 | `video` | B | Compose and publish short video to a video platform through a port, with provenance | Video worker of the first installation |
 | `analytics` | A | Read search and site analytics and feed metrics | Analytics work |
 | `cloud` | D | Operate provider accounts (Cloudflare, Google Cloud) through the deploy module | Cloud operations work |
-| `drafts` | C | Business plan, patent, legal drafts marked for professional review | Patent and plan tooling |
+| `drafts` | C | Business plan, technical-description and legal drafts marked for professional review | Plan and document tooling |
 | `describe` | A | Core feature, not a pack: the organization describes itself (US-SPEC-22) | |
 
 ## 8. Packs are code loops

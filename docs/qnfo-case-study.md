@@ -7,7 +7,7 @@ QNFO is the live demonstration and first customer of Ultrastable: the owner's ow
 
 ## What QNFO is and is not for scope purposes
 
-QNFO also runs outreach, research publishing, patent tooling and similar applications on the same fleet. Those are QNFO's own applications, not Ultrastable's product. Ultrastable's product is the management and self-governance layer described in these documents; the applications are the kind of thing an opt-in Capability Pack would cover ([SCOPE.md](../SCOPE.md)). Where this page cites a number, it comes from QNFO's management and governance ledgers, not from those applications.
+QNFO also runs outreach, research publishing and similar applications on the same fleet. Those are QNFO's own applications, not Ultrastable's product. Ultrastable's product is the management and self-governance layer described in these documents; the applications are the kind of thing an opt-in Capability Pack would cover ([SCOPE.md](../SCOPE.md)). Where this page cites a number, it comes from QNFO's management and governance ledgers, not from those applications.
 
 ## Reading the numbers
 
