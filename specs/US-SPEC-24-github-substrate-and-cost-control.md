@@ -99,7 +99,7 @@ Sources are on docs.github.com unless stated. "Observed" means read from the org
 | Packages | 500 MB storage, 1 GB transfer a month | Free |
 | Codespaces | No included usage shown for Free organizations; unverified | Not applicable |
 
-The practical consequence: while the repositories are private on the Free plan, enforcement of the change path rests on the interrupt gate, CODEOWNERS as documentation, and CI checks the agents run themselves; hosted rulesets begin to bind when the repositories go public.
+The practical consequence: the repositories are public, so the public-repository column applies and hosted rulesets bind once applied; enforcement of the change path also rests on the interrupt gate, CODEOWNERS and the CI checks the agents run themselves.
 
 ## 7. Normative requirements
 
@@ -167,7 +167,7 @@ The practical consequence: while the repositories are private on the Free plan, 
 |---|---|---|
 | Spending limit left at a positive amount | Overage becomes a bill | R20; setting read back by a probe |
 | Workflow without `timeout-minutes` | A hung job bills up to six hours | R12, lint W03 |
-| Schedule trigger on a private repository | Silent minute burn | R14, lint W04 |
+| Schedule trigger on a repository with metered minutes | Silent minute burn | R14, lint W04 |
 | Superseded pull request runs not cancelled | Duplicate minutes | R11 |
 | Path filter skips a required check | Pull request pending forever | R13 |
 | Watchdog reads a response shape that changed | Under-count, no alert | R22, recorded real response |

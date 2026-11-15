@@ -17,9 +17,9 @@
 
 **Can I fork it?** Yes, non-commercially. A fork must keep this licence, publish its source, keep the notices and offer source to its users if you run it over a network (`LICENSE` Section 6).
 
-**Can I write my own implementation from the Specification?** Non-commercially, yes. Commercially it needs a licence if you used the Specification to build it (`LICENSE` 7.2). If you wrote it without ever seeing the Specification, the licence does not bind you, and you are not infringing the Licensor's copyright. The Licensor holds no patent on the ideas; protection comes from copyright, trademark, contract and the commercial price list.
+**Can I write my own implementation from the Specification?** Non-commercially, yes. Commercially it needs a licence if you used the Specification to build it (`LICENSE` 7.2). If you wrote it without ever seeing the Specification, the licence does not bind you, and you are not infringing the Licensor's copyright. Protection comes from copyright, trademark, contract and the commercial price list.
 
-**Why is there no patent?** The idea was disclosed publicly before any filing, which ended most foreign patent rights and started a clock in the United States. The Specification is published on purpose, dated, so that nobody else can patent it either (`LICENSE` Section 10).
+**What does the licence say about patents?** `LICENSE` Section 10 gives users a non-commercial patent license, ends a user's licences if they bring a patent claim against the Materials, and requires anyone who files a patent application that touches the Materials to cite the published Specification as prior art. The Specification is published on purpose and dated.
 
 **Is it open source?** No. It restricts commercial use, which the Open Source Definition does not allow. It is source-available.
 

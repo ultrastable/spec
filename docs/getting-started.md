@@ -5,7 +5,7 @@
 
 ## Who this is for
 
-You can say what you want. You do not need to be a coder or an engineer, and you do not need to know what you do not know. Ultrastable assumes that. You state what you want in plain words; the system works out what it needs to know, asks you for it in plain words (with examples and stated defaults, never jargon; see [US-SPEC-16](../specs/US-SPEC-16-ignorance-and-prompted-recall.md)), writes its own specifications, charters and plans from your answers (see [US-SPEC-15](../specs/US-SPEC-15-management-lifecycle.md)), and manages the build. What it manages is the delivery of what you asked for. It does not write business plans, funding applications, patents or marketing material; those are outside scope unless you switch on an optional Capability Pack (see [SCOPE.md](../SCOPE.md)).
+You can say what you want. You do not need to be a coder or an engineer, and you do not need to know what you do not know. Ultrastable assumes that. You state what you want in plain words; the system works out what it needs to know, asks you for it in plain words (with examples and stated defaults, never jargon; see [US-SPEC-16](../specs/US-SPEC-16-ignorance-and-prompted-recall.md)), writes its own specifications, charters and plans from your answers (see [US-SPEC-15](../specs/US-SPEC-15-management-lifecycle.md)), and manages the build. What it manages is the delivery of what you asked for. It does not write business plans, funding applications, legal filings or marketing material; those are outside scope unless you switch on an optional Capability Pack (see [SCOPE.md](../SCOPE.md)).
 
 Be clear about what works today. The pieces below carry honest labels: **BUILT** (code with passing tests), **RUNNING** (in production in QNFO), **PLANNED**.
 
