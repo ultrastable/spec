@@ -93,4 +93,4 @@ Each period a probe runner re-checks every public claim; the registry is the sou
 |---|---|
 | Claims table with probes, a product page that runs the probe live, an hourly contract, an API feed | RUNNING in the first installation (seven claims); not generalized |
 | Spec status counting (BUILT, RUNNING, PLANNED) from specification tables | BUILT (`tools/spec_backlog.py`) |
-| Self-model builder, claims registry, probe runner, three output forms, voice checker | PLANNED (`core/describe`) |
+| Self-model builder, claims registry, probe runner, three output forms, voice checker | BUILT (`core/describe/index.js`, `core/describe/voice-rules.json`, `core/describe/migrations/0001_describe.sql`; tests `core/describe/describe.test.js`, covering T22-1 to T22-5). Cost per merged change and pull requests merged and rejected have no claim yet |

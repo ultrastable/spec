@@ -151,5 +151,5 @@ Each pack is a set of agents and loops in the same sense as the core: a loop rea
 |---|---|
 | Bootstrap plans out-of-scope cases only for enabled packs | BUILT (`bootstrap/cases.py`; tests) |
 | Email, subscriber, social, video, and analytics workers | RUNNING in the first installation; not generalized |
-| Manifest validation, pack registry, enable gate, pack steps, kill switches, outbound guard | PLANNED (`core/packs`, issue tracker) |
-| `email`, `social`, `video`, `cloud`, `drafts` packs | PLANNED |
+| Manifest validation, pack registry, enable gate, pack steps, kill switches, outbound guard | BUILT (`core/packs/manifest.js`, `core/packs/index.js`, `core/packs/guard.js`, `core/packs/sandbox.js`, `core/packs/static-check.js`; tests `core/packs/packs.test.js`, `core/packs/sandbox.test.js`, `core/packs/loader.test.js`, covering T21-1 to T21-7). Class D sends go through `core/deploy/packs-route.js` |
+| `email`, `social`, `video`, `cloud`, `drafts` packs (and `analytics`) | BUILT (`packs/email/pack.json`, `packs/social/pack.json`, `packs/video/pack.json`, `packs/cloud/pack.json`, `packs/drafts/pack.json`, `packs/analytics/pack.json`; tests `packs/email/email.test.js`, `packs/social/social.test.js`, `packs/video/video.test.js`, `packs/cloud/cloud.test.js`, `packs/drafts/drafts.test.js`, `packs/analytics/analytics.test.js`), each tested with fake ports and no network. No pack has sent through a live provider from this code: that needs the person's provider credential and their enable decision |
