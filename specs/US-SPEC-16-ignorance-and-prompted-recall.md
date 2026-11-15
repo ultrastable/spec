@@ -156,9 +156,16 @@ When the person asks what something means, or answers `Tell me more` three times
 
 ## 12. Reference implementation status
 
+
 | Capability | Status |
 |---|---|
 | Idea file read; connectors and credentials detected; missing items opened as backlog items and gate cards with blocker and closing probe | BUILT (`bootstrap/bootstrap.py`, `IDEA.md`) |
-| Prompted-recall question queue: question, cue, two to four options plus "Not sure", answer maps to a record change by trigger | RUNNING in QNFO (the `owner_asks` queue); not yet in `ultrastable/workers` |
+| Prompted-recall question queue: question, cue, two to four options plus "Not sure", answer maps to a record change by trigger | RUNNING in QNFO (the `owner_asks` queue); the seed's counterpart is the Ask cards row below |
 | Ignorance audit as a research layer | RUNNING in QNFO as part of its research pipeline; not generalized |
-| Needs register derived from the artifact catalog; Ask cards (this specification); glossary; read-back; four-sweep audit; readiness score | PLANNED |
+| Needs register derived from a catalog of artifact fields, with what the idea file answers derived and not asked (R01); Ask cards with every field of 5.1 (R02); defaults with an assumption log, expiry and gate cards for needs that cannot be defaulted (R05, R06, R10); verbatim answers with a deterministic mapping (R07); open cap, daily cap and quiet period (R04, R16) | BUILT (`core/elicit/index.js`; T16-1 to T16-5 in `core/elicit/elicit.test.js`) |
+| Glossary mapping the person's terms and the system's terms into every card, with a review of each card against it (R03); neutral options with the default marked (R08); related needs batched into one card sequence (R17); no escalation when the person stops answering (R18) | BUILT (`core/elicit/index.js`, `core/elicit/elicit.test.js`) |
+| Read-back with provenance tags and defaults first, corrections that re-run the affected artifact, and the computed readiness score with the G1 and G2 rules (R11 to R13, R15; T16-6 to T16-8) | BUILT (`core/elicit/index.js`, `core/elicit/elicit.test.js`); the read-back screen and R14 are in `core/walkthrough/index.js` (`core/walkthrough/walkthrough.test.js`) |
+| Four-sweep ignorance audit with evidence per sweep, a red-team answer refused from the author's model family, and professional topics turned into gate cards (T16-9) | BUILT (`core/elicit/index.js`, `core/elicit/elicit.test.js`); the analogy list and the red-team answer are inputs the caller supplies |
+| A default needs catalog for a new project | BUILT (`core/walkthrough/catalog.json`, checked card by card in `core/walkthrough/walkthrough.test.js`) |
+| Value-of-information estimates logged and scored like predictions (5.3) | PLANNED: the priority is computed and stored on each need; it is not yet written to the prediction table |
+| Research with cited sources for system-unknowns, and a red-team sweep run by a second model on a schedule | PLANNED: both need a live model endpoint; the module accepts their results and does not produce them |

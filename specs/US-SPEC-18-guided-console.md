@@ -114,10 +114,16 @@ The console is a function from a request and a store handle (US-SPEC-14) to a re
 
 ## 11. Reference implementation status
 
+
 | Capability | Status |
 |---|---|
-| Three-screen console, decision-card buttons, typed requests with scope hold, default-deny access, same-origin writes, no third-party requests | BUILT (`worker/src/console.js`, `worker/src/console-ui.js`, `worker/migrations/0002_console.sql`; 4 tests in `worker/test/console.test.js`) |
+| Three-screen console, decision-card buttons, typed requests with scope hold, default-deny access, same-origin writes, no third-party requests | BUILT (`core/src/console.js`, `core/src/console-ui.js`, `core/migrations/0002_console.sql`; 4 tests in `core/test/console.test.js`; R02, R03, R04 and R08 cited in `core/walkthrough/console-rules.test.js`) |
 | Same handler on Google Cloud Run | BUILT (`adapters/gcp/server.js`; 1 test). Not deployed on Google Cloud. |
 | Console fleet view in QNFO (operator console with queue, decisions, prompted-recall questions) | RUNNING in QNFO; not generalized |
-| Walkthrough generated from the needs register; per-person profile; Elicitation Ask cards; read-back screen | PLANNED |
-| Identity-aware proxy deployment guide | PLANNED |
+| Walkthrough generated from the needs register (steps 1 to 5, resumable from the records, never blocked on one card, ending with what runs and what does not yet: R11, R12) | BUILT as a module (`core/walkthrough/index.js`, `core/walkthrough/catalog.json`; tests in `core/walkthrough/walkthrough.test.js`) |
+| Elicitation Ask cards as decision cards with the options, "Not sure" and "Tell me more"; each press stored verbatim and written as a record | BUILT (`core/walkthrough/index.js`, `core/walkthrough/walkthrough.test.js`) |
+| Read-back screen: defaults first, each statement correctable by a button, a correction re-runs the affected artifact, an unconfirmed read-back does not hold work | BUILT (`core/walkthrough/index.js`, `core/walkthrough/walkthrough.test.js`) |
+| Per-person profile (metrics shown, detail, language, cadence, extra cards) set from walkthrough answers, refused when it would remove the Needs-you screen, hide a decision card or lengthen a list | BUILT (`core/walkthrough/index.js`, `core/walkthrough/walkthrough.test.js`) |
+| Walkthrough, Ask cards and profile inside the served console page | PLANNED: the module exports its routes and the composed screens, and `core/src/console.js` and the page script in `core/src/console-ui.js` do not call them yet; text is English only |
+| Identity-aware proxy deployment guide | BUILT as data that code runs (`core/doors/proxy-guide.json`, `core/doors/proxy.js`; tests in `core/doors/proxy.test.js`): each step names the check that observes it done, a step the person must do is a decision card that closes when observed, and the signed headers of Cloudflare Access and Google Identity-Aware Proxy are verified |
+| A deployment behind a real identity-aware proxy; the console accepting the Google header as a sign-in | PLANNED: the first needs a live account; for the second the verification is built and the console calls only the Cloudflare Access check today |

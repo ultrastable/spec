@@ -93,5 +93,10 @@ A level claim is valid only if every requirement tagged at or below that level i
 
 ## 8. Reference implementation status
 
-- Level definitions: PLANNED as a certification process. No conformance suite is published yet; the seed's own tests (see US-SPEC-14, section 8) are the nearest thing.
-- The seed in this project meets most L1 requirements; each specification lists the exceptions.
+
+- Level definitions: BUILT as a runnable conformance suite. `core/conformance/manifest.json` maps every requirement of US-SPEC-00 to US-SPEC-24 to its level and to the tests that cite it, or lists it as a deviation with the reason; `core/conformance/index.js` builds it, states the declaration (level, specification versions, deviation list: US-00-R01, US-00-R02) and checks it against the tree (a requirement labelled met whose test file is gone or no longer cites it fails: US-00-R03); `core/conformance/cli.js` regenerates it, checks it and runs the test files that prove a level (US-00-T01, US-00-T02). Tests: `core/conformance/conformance.test.js`. Requirements of US-SPEC-16 and US-SPEC-18, which carry no level tag, are counted at L2.
+- Declared level of the seed: BUILT as data in `core/conformance/manifest.json`: L1 with a published deviation list. On 2026-11-15, 45 of the 79 L1 requirements were cited by a test and 34 were listed as deviations with the reason "no test in this repository cites this requirement"; a deviation of that kind says the proof is not attached, not that the behavior is absent.
+- L1 conformance tests of US-SPEC-01 and US-SPEC-14 with the requirement ids cited (US-01-T01 to T04, US-14-T01, US-14-T04): BUILT in `core/conformance/l1.test.js`.
+- Certification by a party other than the implementer: PLANNED. The manifest is produced and checked by the implementation itself; an outside audit needs an auditor.
+- US-00-T03 (a production ledger row behind each RUNNING label): PLANNED. Nothing in the seed is labelled RUNNING, and the check needs a production ledger to read.
+- The seed in this project meets most L1 requirements; each specification lists the exceptions, and the deviation list above names every requirement without an attached test.

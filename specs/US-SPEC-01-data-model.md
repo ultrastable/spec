@@ -101,8 +101,12 @@ Column names are illustrative; the roles of the tables are normative.
 
 ## 8. Reference implementation status
 
-- L1 tables: BUILT. `worker/migrations/0001_init.sql` creates all eleven tables in section 4.1 with the columns listed (verified against the file, 2026-11-11). It uses `datetime('now')` defaults and `AUTOINCREMENT`, which are SQLite-dialect features (US-SPEC-14).
+
+- L1 tables: BUILT. `core/migrations/0001_init.sql` creates all eleven tables in section 4.1 with the columns listed; `core/conformance/l1.test.js` checks the columns against section 4.1 and runs US-01-T01 (second application changes nothing), US-01-T02 (second claim rejected), US-01-T03 (silent drop reopened) and US-01-T04 (no planted secret value in any table). The migration uses `datetime('now')` defaults and `AUTOINCREMENT`, which are SQLite-dialect features (US-SPEC-14).
 - Idempotent seed rows: BUILT in the bootstrapper (`bootstrap/bootstrap.py`, tested in `tests/test_seed.py`).
-- Export-before-drop: PLANNED as automation; the migration header states the policy, and the policy file lists the export as the reversible path for destructive migrations.
-- L2 records: RUNNING in QNFO under its own column names; not part of the seed schema (PLANNED for the seed).
+- Export-before-drop: BUILT as automation in `core/export/index.js` (tests: `core/export/export.test.js`). A migration is classified; one that drops or rewrites data is applied only after each affected table was exported to an object store, read back and matched by row count and hash, with the proof in the table `export_ledger`; a missing, unreadable or different export refuses the migration. The same test file checks that every migration shipped in the repository is additive.
+- Export-before-drop against a hosted object store: PLANNED. The store is a port (`put`, `get`) that an R2 bucket binding fits; no live bucket has been used, and the migration tool that applies migrations to a deployed database does not yet call `core/export`.
+- L2 records: RUNNING in QNFO under its own column names.
+- L2 records in the seed: BUILT across the module migrations. `core/conformance/l2-records.json` maps 27 of the 29 records of section 4.2 to seed tables (for example `management_personas` to `staff_personas`, `decision_log` to `kernel_decisions` and `predict_decisions`, `work_claims` to `claims_lock`), and `core/conformance/l1.test.js` applies every module migration and fails if a mapped table is missing. A module's tables reach a deployed database when the module is listed in `core/org/modules.js`.
+- L2 records `program_focus_log` and `model_task_matrix`: PLANNED. The seed keeps the current focus set with the tick that wrote it and no history of earlier sets; the model for each kind of task is router configuration, not a stored table.
 - Disagreement with the source design: the QNFO design stores one `tick_runs` row per step (tick id, step, ok, evidence); the seed stores one row per tick with step counts. US-SPEC-03 permits either at L1 and requires per-step evidence at L2.
