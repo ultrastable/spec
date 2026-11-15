@@ -1,0 +1,8 @@
+# Protected paths: a change needs the owner and a Protected-change: line in the pull request.
+/LICENSE @rwnq8
+/COMMERCIAL-TERMS.md @rwnq8
+/NOTICE @rwnq8
+/SCOPE.md @rwnq8
+/AGENTS.md @rwnq8
+/.github/workflows/ @rwnq8
+/.github/CODEOWNERS @rwnq8
