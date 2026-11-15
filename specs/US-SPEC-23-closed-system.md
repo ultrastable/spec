@@ -63,4 +63,4 @@ Terms are defined once, in the principles register (`core/principles/principles.
 | Principles register, generated glossary, enforcer and tracking checks (`core/principles/`) | BUILT (6 tests) |
 | Kernel reconcile, failure-mode register and loop breaker; claims; runner | BUILT (`core/kernel`, `core/claims`, `core/runner`) |
 | Open-loop linter for any repository | BUILT (`products/gaplint`) |
-| Directive enforcement for ignorance elicitation and outbound packs | PLANNED (tracked by the register: issues 60, 28, 30) |
+| Directive enforcement for ignorance elicitation and outbound packs | BUILT (`core/principles/enforcement.js`, test `core/principles/enforcement.test.js`): the register marks D-IGNORANCE-ASSUMED, D-SCOPE-AND-PACKS and D-OUTREACH-AS-LOOPS enforced, and each has a check that runs its enforcer against the checkout (`core/elicit/index.js` ask-card rules; `core/packs/manifest.js` and the no-pack-import check over every `packs/` manifest; loops, charter metrics, caps and suppression of the email, social and video packs) |

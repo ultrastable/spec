@@ -106,8 +106,16 @@ for row in open_rows:
 
 ## 9. Reference implementation status
 
-- Not in the seed. The seed's only status surface is `/health` and the four-line tick report (BUILT, `worker/src/index.js`). A product dashboard is PLANNED.
+
+- Health route and the four-line tick report: BUILT (`adapters/cloudflare/src/index.js`, `core/src/tick.js`).
+- Product dashboard: BUILT as a module in `core/console-l3/dashboard.js` (tests: `core/console-l3/dashboard.test.js`): the status page, `/api/state`, `/api/refresh`, `/api/integration`, `/api/loop` and `/health`, all rendered from the one state function of `core/console-l3/index.js` that also feeds the digest (US-13-R01, US-13-R02); probe targets are checked against routing so an unrouted target is reported unrouted, not down (US-13-R13). The composition root serves the earlier JSON routes under the console; mounting the status page and the three new routes there is not done yet.
+- Dashboard panels fed by platform analytics (24-hour requests and errors, per-scheduled-worker errors and next runs): PLANNED. They need a live account's analytics; the seed has no such reading.
+- Report cards with evidence, confidence, status and limits; a fall of 0.5 files a work item; the objective function may be proposed and never adopted (US-13-R03 to R06): BUILT in `core/console-l3/index.js` (tests: `core/console-l3/console-l3.test.js`).
 - Fleet dashboard (72 workers, 24-hour request and error totals, flow chains, integration route): RUNNING in QNFO. Autonomy report card scored 3.6 of 5 on 2026-09-10; that figure is the system's own, dated, and not independently verified.
-- Service-level policy and weekly audit: RUNNING as policy in QNFO; automatic due-date recomputation is PLANNED.
-- Per-step budgets and automatic breach procedure, six-term F: PLANNED.
-- Monthly automated recomputation of the autonomy card from tables: PLANNED (operation after 2026-10-10 not evidenced).
+- Service-level policy and weekly audit: RUNNING as policy in QNFO.
+- Automatic due-date recomputation, the 14-day hard cap with its three exemptions, the acceleration rule, the past-due raise with a notice to the manager, the weekly audit, and the count of items that wait on a person as a metric with target zero (US-13-R07 to R10, US-13-T03): BUILT in `core/sla/index.js` (tests: `core/sla/sla.test.js`). It runs as one `step` per tick once the composition root calls it; that call is not wired yet.
+- Per-step budgets and automatic breach procedure (US-13-R11, US-13-R12, US-13-T04): BUILT. `core/sla/index.js` stores process definitions and step runs and reports steps with fewer than two paths; `core/console-l3/index.js` files one item past the budget and exactly one blocking question past twice the budget.
+- Six-term F: BUILT as a computed, stored scalar in `core/sla/index.js` (table `sla_objective`, with the weights in effect and the triad). Three terms are read from L1 tables (loop closure rate, human interventions, throughput); drift count, cost overrun and integration gap are read only when the caller passes a reading and are marked unmeasured otherwise.
+- Calibrated weights for F: PLANNED. The weights are configuration defaults marked uncalibrated; calibrating them needs a history of real cycles.
+- Monthly automated recomputation of the autonomy card from tables: BUILT in `core/sla/index.js` (`recomputeAutonomyCard`, driven by a dated register row; tests in `core/sla/sla.test.js`, including US-13-T05). The ten dimensions are ratios this module reads from L1 tables, not the ten dimensions of the QNFO card; a top score is recorded as a gap and the three largest gaps are filed each cycle.
+- Outside audit of the report cards: PLANNED. The cards are self-measured and say so in their limits.
