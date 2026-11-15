@@ -192,7 +192,9 @@ A conforming implementation adds the following (names are normative, columns are
 
 | Capability | Status |
 |---|---|
-| Work items, triggers, done checks, closing probes, dispositions, claims, gate cards, predictions, trust, status in four lines | BUILT (`worker/src/tick.js`, `worker/migrations/0001_init.sql`) |
-| Charters, program and portfolio managers, roadmap, weekly report, management compliance check | RUNNING in QNFO as documents and workers; not yet generalized in `ultrastable/workers` |
-| Phase gates, `phases`, `artifacts`, `change_requests`, `risks`, `lessons` tables | PLANNED |
-| Mode tailoring, iteration records, scope gate | PLANNED |
+| Work items, triggers, done checks, closing probes, dispositions, claims, gate cards, predictions, trust, status in four lines | BUILT (`core/src/tick.js`, `core/migrations/0001_init.sql`, tests in `core/test/tick.test.js`) |
+| Charters, program and portfolio managers, roadmap, weekly report, management compliance check | RUNNING in QNFO as documents and workers. Generalized in part in `ultrastable/workers`: program charters with primary and guard metrics in `core/kernel/programs.js`, managers with decision authority in `core/staff/index.js`; the weekly report and the compliance check are not |
+| Phase gates G1 to G3, `phases`, `artifacts`, `change_requests`, `risks`, `lessons` tables (R01, R04 to R07, R11, T15-1, T15-2, T15-3, T15-6) | BUILT (`core/kernel/lifecycle.js`, `core/kernel/migrations/0002_lifecycle.sql`, tests in `core/kernel/lifecycle.test.js`). The tick files missing gate artifacts as items |
+| Mode tailoring, iteration records, scope gate (R02, R03, R09, R12, R13, T15-4, T15-5) | BUILT (`core/lifecycle-gates/index.js`, `core/lifecycle-gates/migrations/0001_lifecycle_gates.sql`, tests in `core/lifecycle-gates/lifecycle-gates.test.js`). The scope classifier is keyword rules restating `SCOPE.md`; enabling a pack records the decision and does not install the pack |
+| Deliverable closing probes, status report with predicted versus actual, portfolio cap, the G1 conditions on the charter probe and the readiness score (R08, R10, R14) | BUILT (`core/lifecycle-gates/index.js`, tests in `core/lifecycle-gates/lifecycle-gates.test.js`). The readiness score is a port served by `core/elicit` |
+| Starting the lifecycle step from the composition root, risk review (A-MON-4), quality metrics (A-MON-6), the G2 mapping of every requirement to an item and a probe | PLANNED. `lifecycleStep` is exported and not yet in the list `core/org` runs; the `risks` table has no step that reviews it |
