@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: LicenseRef-Ultrastable-USL-1.0
+# Copyright (c) 2026 Rowan Brad Quni-Gudzinas. Non-commercial use free; commercial use requires a license. See LICENSE.
 # DIR-1 (DIRECTIVES.md): every loop closes server-side with zero user action.
 # Fails when (a) a DIRECTIVES.md entry has no `Enforced-by:` line naming an existing file,
 # or (b) a change adds text that makes a local machine or a person the closer of a loop.
