@@ -50,13 +50,13 @@ Normative; ids are stable.
 - **TS-10** Self-metered usage SHOULD be cross-checked against the platform's own analytics; a divergence over 20 percent is a finding.
 - **TS-11** Core code MUST NOT import a platform; platform code lives in adapters. The SQLite adapter (`adapters/sqlite/tenant-sqlite.js`) runs the same contract on any host.
 
-## 5. Budget defaults and the hard bound
+## 5. Budget profiles and the hard bound
 
-Defaults per tenant (`core/tenantstore/budget.js`): day 20 M reads, 200 k writes, 200 k requests; month 400 M reads, 3 M writes, 3 M requests; 1 GiB storage; 20,000 vectors. With five tenants at their full monthly budget the estimate is about USD 7.10 (USD 5.00 base plus 14 M requests over the included 1 M at 0.15), which is under the owner's ceiling of USD 8; the probe fails a test if that stops being true. A tenant raises its cap only by a reviewed change to its budget row.
+Two profiles (`core/tenantstore/budget.js`). **Free** (the deployed default): per tenant per day 1 M reads, 15,000 writes, 15,000 requests, so five tenants stay inside the Workers Free plan's account-wide Durable Object limits of 5 M rows read, 100,000 rows written and 100,000 requests per day; the bill is USD 0 and a spent budget refuses work instead of billing. **Paid** (applies only if the owner upgrades): day 20 M reads, 200 k writes, 200 k requests; month 400 M, 3 M, 3 M. With five tenants at the full paid monthly budget the estimate is about USD 7.10 (USD 5.00 base plus 14 M requests over the included 1 M at 0.15), under the owner's USD 8 ceiling; a test fails if that stops being true. Metering is held in memory and flushed every 25 operations, so it does not burn the plan's rows-written allowance. A tenant raises its cap only by a reviewed change to its budget row.
 
 ## 6. Conformance and status
 
 | Req | Status | Evidence |
 |---|---|---|
-| TS-1 to TS-8, TS-11 | BUILT | `workers/core/tenantstore/tenantstore.test.js`, `workers/adapters/cloudflare/src/tenant-do.js` (tested against a fake; not deployed to a real account) |
+| TS-1 to TS-8, TS-11 | BUILT, and RUNNING on the ultrastable Cloudflare account as `ultrastable-tenants` (self-test passes) | `workers/core/tenantstore/tenantstore.test.js`, `workers/adapters/cloudflare/src/tenant-do.js` (tested against a fake; not deployed to a real account) |
 | TS-9, TS-10 | PLANNED | no file yet |
