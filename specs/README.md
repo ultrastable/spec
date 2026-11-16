@@ -36,6 +36,7 @@ These documents specify the architecture of Ultrastable, an autonomous developme
 | [US-SPEC-22](US-SPEC-22-self-description.md) | Self-description and the claims registry | L2 |
 | [US-SPEC-23](US-SPEC-23-closed-system.md) | The closed system: autonomy as self-referential loops | all |
 | [US-SPEC-24](US-SPEC-24-github-substrate-and-cost-control.md) | GitHub as substrate and hard cost control | L2, L3 |
+| [US-SPEC-25](US-SPEC-25-tenant-storage.md) | Tenant storage: sandboxed stores, vectors, hard budgets | L2, L3 |
 
 ## Status legend
 
